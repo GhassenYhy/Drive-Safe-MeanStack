@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-product">
+                <div class="card-image" data-header-animation="false">
+                    <a ui-sref="scenario">
+                        <img class="img" ng-src="./assets/img/uploads/{{ scenarioReservation.scenario.image }}">
+                    </a>
+                </div>
+                <div class="card-content">
+                    <h4 class="card-title">
+                        <a ui-sref="scenario">{{scenarioReservation.scenario.name}}</a>
+                        <div ng-class="{'text-success':rate>80,'text-warning':rate<=80&&rate>=40,'text-danger':rate<40}">{{rate}}% Success Rate</div>
+                    </h4>
+                    <div class="card-description">
+                        {{scenarioReservation.description}}
+                        <div ng-repeat="item in scenarioReservation.skills">
+                        <h5 ng-class="{'text-success':item.score>=50,'text-warning':item.score<50&&item.score>=20,'text-danger':item.score<20}">{{item.skill.name}}({{item.score}}%)</h5>
+                        <div class="progress progress-line-primary">
+                            <div  class="progress-bar" role="progressbar" aria-valuenow="{{item.score}}" aria-valuemin="0" aria-valuemax="100" style="width: {{item.score}}%;">
+                                <span class="sr-only">{{item.score}}% Complete</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="price" ng-class="{'text-success':scenarioReservation.scenario.difficulty==0,'text-warning':scenarioReservation.scenario.difficulty==1,'text-danger':scenarioReservation.scenario.difficulty==2}">
+                        <h4>
+                            <span ng-show="scenarioReservation.scenario.difficulty==0">Easy</span>
+                            <span ng-show="scenarioReservation.scenario.difficulty==1">Medium</span>
+                            <span ng-show="scenarioReservation.scenario.difficulty==2">Hard</span>
+                        </h4>
+                    </div>
+                    <div class="stats pull-right">
+                        <p class="category"><span ng-repeat="skill in scenarioReservation.skills">{{skill.skill.name}}{{$last ? '' : ', '}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button ng-show="scenarioReservation.status==0" ng-click="remove()" class="btn btn-danger">
+                                        <span class="btn-label">
+                                            <i class="material-icons">priority_high</i>
+                                        </span>
+                Remove from reservation
+            </button>
+
+        </div>
+    </div>
+</div>
